@@ -118,7 +118,7 @@ a(1) = sqrt(gas.gamma*T(1)*8314/28.73);
 S1 = 120;
 T0 = 291.15;
 mu0 = 18.27e-6;
-mu = mu0*(T(1)/T0)^(3/2)*(T0+S1)/(T(1)+S1);
+mu(1) = 1.458e-6*T(1)^(3/2)/(T(1)+110.4);
 l = mu./P.*sqrt(pi*gas.R.*T/2);
 
 % Resultados: alturas
