@@ -5,7 +5,6 @@ close all
 
 %% DATOS
 
-M1 = 6.9;
 Mm = 29;
 gamma = 1.4;
 P = 101325;         % Pa
@@ -16,12 +15,15 @@ gas = gas_obj();
 
 
 %% EJERCICIO 1
+M1 = 6.9;
 
 resultados_1 = struct();
 
 % Apartado a)
 gas.gas_TP(Mm, gamma, P, T);
 resultados_1.a = [ gas.rho; gas.e ];
+
+e = gas.rho*(M1*gas.a)/2;
 
 % Apartado b)
 [T0, P0, rho0, h0] = gas.remanso(M1, gas.T, gas.P, gas.rho);
@@ -91,6 +93,22 @@ resultados_3.a2 = [rad2deg(beta2); Mn1; T2];
 
 % Resultados
 resultados_3 = struct2table(resultados_3);
+
+
+syms f(delta,beta)
+f(delta,beta) = 2*cot(beta)*( ( M1^2*(sin(beta))^2 - 1 )/...
+                    ( M1^2*(gas.gamma+cos(2*beta)) + 2 ) ) - tan(delta);
+
+h = figure();
+    hold on
+    fimplicit(f, [0 deg2rad(50) 0 pi/2], 'Color', 'k', 'LineWidth', 2, 'DisplayName', 'Curva $M_1 = 8$')
+    plot([deg2rad(20),deg2rad(20)], [0 pi/2], '-.', 'Color', 'k', 'LineWidth', 2, 'DisplayName', '$\delta = 20^\circ$')
+    axis([0, 0.9, 0, pi/2])
+    grid on; box on;
+    legend('Interpreter','Latex', 'Location', 'SouthEast')
+    xlabel('$\delta$ [rad]','Interpreter','Latex')
+    ylabel({'$\beta$';'[rad]'},'Interpreter','latex')
+    Save_as_PDF(h,'Figures/M8','horizontal');
 
 
 %% EJERCICIO 4
