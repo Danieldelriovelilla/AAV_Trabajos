@@ -1,4 +1,4 @@
-function g = function_g(z)
+function g = Function_g(z)
     
     global g0;
     global Rt;    

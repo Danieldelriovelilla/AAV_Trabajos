@@ -1,15 +1,14 @@
 function yP = ecuacioneF(yn, E, beta)
 
-    global Rt;
+    Rt = 6378e3;
 
     gamma = yn(1);
     u = yn(2);
     z = yn(3);
 
-    r = z + Rt;
-
-    rhoZ = function_rho_r(r);
-    g = function_g_r(r);
+    r = Rt + z;
+    rhoZ = f_rho(z);
+    g = f_g(z);
 
 
     Lom = rhoZ * u^2 * E /(2*beta);

@@ -1,22 +1,22 @@
 function [entryDinamicSol] = Runge_Kutta_4(beta, E, yi, Dt)
 
-    yn = [yi(3); yi(2); yi(1)];
-    mov = [yn; 0];
+    y = [yi(3); yi(2); yi(1)];
+    mov = [y; 0];
 
-    while yn(3) > 0
+    while y(3) > 0
 
-        k1 = ecuacioneF(yn, E, beta);
-        k2 = ecuacioneF(yn + k1*Dt/2, E, beta);
-        k3 = ecuacioneF(yn + k2*Dt/2, E, beta);
-        k4 = ecuacioneF(yn + k3*Dt, E, beta);
+        k1 = Ec_Dinamica(y, E, beta);
+        k2 = Ec_Dinamica(y + k1*Dt/2, E, beta);
+        k3 = Ec_Dinamica(y + k2*Dt/2, E, beta);
+        k4 = Ec_Dinamica(y + k3*Dt, E, beta);
 
-        yn1 = yn + Dt/6*(k1 + 2*k2 + 2*k3 + k4);
+        yn1 = y + Dt/6*(k1 + 2*k2 + 2*k3 + k4);
 
         aux = [yn1; k1(2)];
 
         mov = [mov aux];
 
-        yn = yn1;
+        y = yn1;
 
         %     disp(yn(3)/1000)
 
@@ -37,10 +37,15 @@ function [entryDinamicSol] = Runge_Kutta_4(beta, E, yi, Dt)
     entryDinamicSol.beta0    = beta;
     entryDinamicSol.E0       = E;
     entryDinamicSol.t = t';
+    entryDinamicSol.tx = max(t);
     entryDinamicSol.z = zt';
+    entryDinamicSol.zx = max(zt);
     entryDinamicSol.u = ut';
+    entryDinamicSol.ux = max(ut);
     entryDinamicSol.gamma = gamat';
+    entryDinamicSol.gammax = max(gamat);
     entryDinamicSol.a = at';
+    entryDinamicSol.ax = min(at);
     % entryDinamicSol.results  = matrizSolu;
 
 

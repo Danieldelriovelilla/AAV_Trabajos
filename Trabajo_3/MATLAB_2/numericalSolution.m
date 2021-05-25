@@ -1,11 +1,12 @@
 clc
-clear
+clear 
 close all
+
 
 %% Global variables
 
-global g0; g0 = 9.81;               % [m/s^2]
-global Rt; Rt = 6378e3;             % [m]
+global g0; g0 = 9.81;
+global Rt; Rt = 6378e3;
 
 
 
@@ -117,32 +118,3 @@ for b = 1:length(beta)
 
     end
 end
-
-
-
-%% Balistico - Analitico
-z = linspace(0,200e3,1e3+1);
-gamma_e = deg2rad(-1);
-beta = 150;                                 % [kg/m^2]
-
-U_Balistic = Analytic_Balistic(z, gamma_e, beta);
-
-h = figure();
-    plot(U_Balistic, z);
-    xlabel('$U/U_e$', 'Interpreter', 'Latex')
-    ylabel('$z$ [m]', 'Interpreter', 'Latex')
-    title('Analitica: balistica', 'Interpreter', 'Latex')
-    
-
-%% Planeo - Analaitico
-z = linspace(0,100e3,1e3+1);
-beta = 500;                                 % [kg/m^2]
-E = 0.25;
-
-U_Glide = Analytic_Glide(z, beta, E);
-
-h = figure();
-    plot(U_Glide, z);
-    xlabel('$U/U_e$', 'Interpreter', 'Latex')
-    ylabel('$z$ [m]', 'Interpreter', 'Latex')
-    title('Analitica: planeo', 'Interpreter', 'Latex')
