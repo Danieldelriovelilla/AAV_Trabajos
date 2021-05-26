@@ -1,8 +1,10 @@
 function g = f_g(z)
-
-    g0 = 9.81;          % [m/s^2]
-    Rt = 6378e3;        % [m]
     
+    % Constantes
+    g0 = 9.81;          
+    Rt = 6378e3;        
+    
+    % Gravedad en funcion de z
     g = g0*( Rt/(z + Rt) );
 
 end

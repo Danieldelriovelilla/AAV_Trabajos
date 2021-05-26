@@ -17,8 +17,9 @@ global Rt; Rt = 6378e3;             % [m]
 E = [0 0.5 1];
 beta = [50 250 500];
 % Intial condition
-y0_set = [[150e3; 7.5e3; deg2rad(-5)], [150e3; 8.5e3; deg2rad(-5)],...
-          [150e3; 7.5e3; deg2rad(-10)]];
+y0_set = [[150e3, 7.5e3, deg2rad(-5)]',...
+          [150e3, 8.5e3, deg2rad(-5)]',...
+          [150e3, 7.5e3, deg2rad(-10)]'];
 
 % RK4 time step
 Dt = 0.1;                           % [s]
@@ -30,11 +31,9 @@ colors = [0, 0.4470, 0.7410;
           0.8500, 0.3250, 0.0980;
           0.4660, 0.6740, 0.1880;
           0.4940, 0.1840, 0.5560]; 
-colors_an = [0.6350, 0.0780, 0.1840];
 
 line_style = {'-','-.',':'};
-leg_str_nu = "['$E = ' num2str(E(e)) ' $ ; $\beta = ' num2str(beta(b)) '$']";
-leg_str_an = "['An. $E = ' num2str(E(e)) ' $ ; $\beta = ' num2str(beta(b)) '$']";
+leg_str = "['$E = ' num2str(E(e)) ' $ ; $\beta = ' num2str(beta(b)) '$']";
 PDF_str = "['Figures/Num_Fig_' num2str(f) '_ue_',  num2str(y0(2)/100), '_gammae_', num2str(rad2deg(y0(3)))]";      
 
 
@@ -61,7 +60,7 @@ for y = 1:size(y0_set,2)
                 hold on
                 plot(numeric(b,e).t/60, rad2deg(numeric(b,e).gamma),...
                      line_style{b}, 'Color', colors(e,:), 'LineWidth', 1.5,...
-                     'DisplayName', eval(leg_str_nu))
+                     'DisplayName', eval(leg_str))
                 axis([0, max([numeric(:,:).tx])/60, -90, rad2deg(max([numeric(:,:).gammax]))])
                 grid on; box on;
                 xlabel('$t$ [min]', 'Interpreter', 'Latex')
@@ -72,7 +71,7 @@ for y = 1:size(y0_set,2)
                 plot(numeric(b,e).t/60,...
                     numeric(b,e).u/numeric(b,e).u0,...
                     line_style{b}, 'Color', colors(e,:), 'LineWidth', 1.5,...
-                    'DisplayName', eval(leg_str_nu))
+                    'DisplayName', eval(leg_str))
                 axis([0, max([numeric(:,:).tx])/60, 0, max([numeric(:,:).ux])/numeric(b,e).u0])
                 grid on; box on;
                 xlabel('$t$ [min]', 'Interpreter', 'Latex')
@@ -82,7 +81,7 @@ for y = 1:size(y0_set,2)
                 hold on
                 plot(numeric(b,e).t/60,numeric(b,e).z/1000,...
                     line_style{b}, 'Color', colors(e,:), 'LineWidth', 1.5,...
-                    'DisplayName', eval(leg_str_nu))
+                    'DisplayName', eval(leg_str))
                 axis([0, max([numeric(:,:).tx])/60, 0, max([numeric(:,:).zx])/1000])
                 grid on; box on;
                 xlabel('$t$ [min]', 'Interpreter', 'Latex')
@@ -92,7 +91,7 @@ for y = 1:size(y0_set,2)
                 hold on
                 plot(numeric(b,e).t/60,-numeric(b,e).a/9.81,line_style{b},...
                      'Color', colors(e,:), 'LineWidth', 1.5,...
-                     'DisplayName', eval(leg_str_nu))
+                     'DisplayName', eval(leg_str))
                 axis([0, max([numeric(:,:).tx])/60,-.1, -min([numeric(:,:).ax])/9.81])
                 grid on; box on;
                 xlabel('$t$ [min]', 'Interpreter', 'Latex')

@@ -1,5 +1,6 @@
 function rho = f_rho(z)
 
+    % Parametros de la atmosfera en funcion de la altura
     if z < 150e3
         rho0    = 1.225;
         zs      = 7.524e3;
@@ -8,6 +9,7 @@ function rho = f_rho(z)
         zs      = 59.06e3;
     end
 
-     rho = rho0*exp(-z/zs);
+    % Densidad en funcion de z
+    rho = rho0*exp(-z/zs);
      
 end
